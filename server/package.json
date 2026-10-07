@@ -1,0 +1,15 @@
+{
+  "name": "guardcafe-server",
+  "version": "0.0.1",
+  "description": "GuardCafe is an application for security outfit managenent -- This is the server-side",
+  "license": "ISC",
+  "author": "Maximillian Raphaels",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
