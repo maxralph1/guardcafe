@@ -1,101 +1,101 @@
-import { EntitySchema } from 'typeorm'; 
-import { baseColumns } from './baseColumns.js'; 
+import { EntitySchema } from 'typeorm';
+import { baseColumns } from './baseColumns.js';
 
-/** 
+/**
  * A scheduled work period for one officer at one site. This is the backbone of payroll.
- * 
+ *
  * The Shift represents the scheduled assignment and its accepted actual start/end times. AttendanceEvent should preserve the underlying clock-in/clock-out event history.
  *
  * Payroll should use approved attendance and applicable compensation rules rather than blindly treating scheduled hours as worked hours.
  */
 export const Shift = new EntitySchema({
-  name: 'Shift', 
-  tableName: 'shifts', 
+  name: 'Shift',
+  tableName: 'shifts',
   columns: {
-    ...baseColumns,  
+    ...baseColumns,
     scheduledStart: {
-      name: 'scheduled_start', 
+      name: 'scheduled_start',
       type: 'timestamptz',
       nullable: false,
-    }, 
+    },
     scheduledEnd: {
       name: 'scheduled_end',
       type: 'timestamptz',
       nullable: false,
-    }, 
+    },
     /** clock-in */
     actualStart: {
-      name: 'actual_start', 
+      name: 'actual_start',
       type: 'timestamptz',
       nullable: true,
-    }, 
+    },
     /** clock-out */
     actualEnd: {
-      name: 'actual_end', 
+      name: 'actual_end',
       type: 'timestamptz',
       nullable: true,
-    }, 
+    },
     status: {
-      type: 'varchar', 
-      length: 50, 
-      nullable: false, 
-      default: 'scheduled',   
+      type: 'varchar',
+      length: 50,
+      nullable: false,
+      default: 'scheduled',
       // scheduled, in_progress, completed, missed, cancelled, no_show
-    }, 
+    },
     type: {
-      type: 'varchar', 
-      length: 50, 
-      nullable: false, 
-      default: 'day',   
+      type: 'varchar',
+      length: 50,
+      nullable: false,
+      default: 'day',
       // day, night, swing, overtime
-    }, 
+    },
     /** admin/scheduler notes */
     notes: {
-      name: 'notes', 
-      type: 'text', 
+      name: 'notes',
+      type: 'text',
       nullable: true,
-    }, 
+    },
     notesByUserId: {
       name: 'notes_by_user_id',
       type: 'uuid',
-      nullable: true, 
+      nullable: true,
       /** 
       foreignKey: { 
         target: "users", // User
        }, 
        */
-    }, 
+    },
     assignedByUserId: {
       name: 'assigned_by_user_id',
       type: 'uuid',
-      nullable: false, 
+      nullable: false,
       /** 
       foreignKey: { 
         target: "users", // User
        }, 
        */
-    }, 
+    },
     officerId: {
       name: 'officer_id',
       type: 'uuid',
       nullable: false,
-    }, 
+    },
     siteId: {
       name: 'site_id',
       type: 'uuid',
       nullable: false,
-    }, 
+    },
     clientId: {
       name: 'client_id',
       type: 'uuid',
       nullable: false,
-    }, 
+    },
     employmentId: {
       name: 'employment_id',
       type: 'uuid',
       nullable: false,
     },
-  }, 
+  },
   relations: {
     assignedByUser: {
       type: 'many-to-one',
@@ -196,13 +196,11 @@ export const Shift = new EntitySchema({
     },
     {
       name: 'CHK_SHIFTS_ACTUAL_TIME_RANGE',
-      expression:
-        '"actual_start" IS NULL OR "actual_end" IS NULL OR "actual_end" > "actual_start"',
+      expression: '"actual_start" IS NULL OR "actual_end" IS NULL OR "actual_end" > "actual_start"',
     },
     {
       name: 'CHK_SHIFTS_STATUS',
-      expression:
-        `"status" IN ('scheduled', 'in_progress', 'completed', 'missed', 'cancelled', 'no_show')`,
+      expression: `"status" IN ('scheduled', 'in_progress', 'completed', 'missed', 'cancelled', 'no_show')`,
     },
     {
       name: 'CHK_SHIFTS_TYPE',

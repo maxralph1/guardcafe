@@ -51,13 +51,13 @@ export const RefreshToken = new EntitySchema({
   relations: {
     user: {
       type: 'many-to-one',
-      target: 'User', 
+      target: 'User',
       joinColumn: {
         name: 'user_id',
         referencedColumnName: 'id',
       },
-      nullable: false, 
-      onDelete: 'RESTRICT', 
+      nullable: false,
+      onDelete: 'RESTRICT',
     },
   },
   indices: [

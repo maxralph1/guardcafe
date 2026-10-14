@@ -3,26 +3,26 @@ import { baseColumns } from './baseColumns.js';
 
 export const IncidentAttachment = new EntitySchema({
   name: 'IncidentAttachment',
-  tableName: 'incident_attachments', 
+  tableName: 'incident_attachments',
   columns: {
     ...baseColumns,
     fileType: {
       name: 'file_type',
       type: 'varchar',
       length: 50,
-      nullable: false,   // image, video, audio, document, other
+      nullable: false, // image, video, audio, document, other
     },
     fileName: {
       name: 'file_name',
       type: 'varchar',
       length: 255,
       nullable: true,
-    }, 
+    },
     mimeType: {
       name: 'mime_type',
       type: 'varchar',
       length: 150,
-      nullable: true,   
+      nullable: true,
       // e.g. image/jpeg or application/pdf
     },
     fileSizeBytes: {
@@ -55,7 +55,7 @@ export const IncidentAttachment = new EntitySchema({
       name: 'evidence_status',
       type: 'varchar',
       length: 30,
-      nullable: true,   
+      nullable: true,
       // uploaded, under_review, accepted, rejected, archived
     },
     collectedAt: {
@@ -91,7 +91,7 @@ export const IncidentAttachment = new EntitySchema({
       name: 'source_type',
       type: 'varchar',
       length: 50,
-      nullable: true, 
+      nullable: true,
       // officer, CCTV, witness, client.
     },
     sourceReference: {

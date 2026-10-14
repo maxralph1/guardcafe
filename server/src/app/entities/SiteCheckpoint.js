@@ -1,5 +1,5 @@
-import { EntitySchema } from 'typeorm'; 
-import { baseColumns } from './baseColumns.js'; 
+import { EntitySchema } from 'typeorm';
+import { baseColumns } from './baseColumns.js';
 
 /**
  * Optional NFC/WR patrol checkpoints within a site (patrol route feature).
@@ -7,50 +7,50 @@ import { baseColumns } from './baseColumns.js';
  * Do not delete checkpoints referenced by historical patrol records.
  */
 export const SiteCheckpoint = new EntitySchema({
-  name: 'SiteCheckpoint', 
-  tableName: 'site_checkpoints', 
+  name: 'SiteCheckpoint',
+  tableName: 'site_checkpoints',
   columns: {
-    ...baseColumns, 
+    ...baseColumns,
     label: {
-      type: 'varchar', 
-      length: 100, 
-      nullable: false
-    }, 
+      type: 'varchar',
+      length: 100,
+      nullable: false,
+    },
     checkpointCode: {
-      name: 'checkpoint_code', 
-      type: 'varchar', 
-      length: 100, 
-      unique: false, 
-    }, 
+      name: 'checkpoint_code',
+      type: 'varchar',
+      length: 100,
+      unique: false,
+    },
     latitude: {
-      type: 'numeric', 
-      precision: 10, 
-      scale: 7, 
+      type: 'numeric',
+      precision: 10,
+      scale: 7,
       nullable: false,
-    }, 
+    },
     longitude: {
-      type: 'numeric', 
-      precision: 10, 
-      scale: 7, 
+      type: 'numeric',
+      precision: 10,
+      scale: 7,
       nullable: false,
-    }, 
+    },
     /** for patrol routes */
     sequenceOrder: {
-      name: 'sequence_order', 
-      type: 'int', 
-      nullable: true, 
-    }, 
+      name: 'sequence_order',
+      type: 'int',
+      nullable: true,
+    },
     isActive: {
       name: 'is_active',
       type: 'boolean',
       default: false,
       nullable: false,
-    }, 
+    },
     siteId: {
       name: 'site_id',
       type: 'uuid',
       nullable: false,
-    }, 
+    },
     /** 
     clientId: {
       name: 'client_id',
@@ -58,18 +58,18 @@ export const SiteCheckpoint = new EntitySchema({
       nullable: false,
     }, 
     */
-  }, 
+  },
   relations: {
     site: {
       type: 'many-to-one',
-      target: 'Site', 
+      target: 'Site',
       joinColumn: {
         name: 'site_id',
         referencedColumnName: 'id',
       },
-      nullable: false, 
-      onDelete: 'RESTRICT', 
-    }, 
+      nullable: false,
+      onDelete: 'RESTRICT',
+    },
     /** 
     client: {
       type: 'many-to-one',
@@ -81,7 +81,7 @@ export const SiteCheckpoint = new EntitySchema({
       onDelete: 'CASCADE',
       nullable: false,
     }, 
-    */ 
+    */
     patrols: {
       type: 'one-to-many',
       target: 'SiteCheckpointPatrol',
@@ -100,7 +100,7 @@ export const SiteCheckpoint = new EntitySchema({
       name: 'IDX_SITE_CHECKPOINTS_SITE_ID',
       columns: ['siteId'],
       unique: false,
-    }, 
+    },
     {
       name: 'UQ_SITE_CHECKPOINTS_SITE_CODE',
       columns: ['siteId', 'checkpointCode'],

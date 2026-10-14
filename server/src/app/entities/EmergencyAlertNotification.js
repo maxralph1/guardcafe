@@ -1,4 +1,4 @@
-import { EntitySchema } from 'typeorm'; 
+import { EntitySchema } from 'typeorm';
 import { baseColumns } from './baseColumns.js';
 
 /** Delivery jobs, retries, and delivery result. */
@@ -6,7 +6,7 @@ export const EmergencyAlertNotification = new EntitySchema({
   name: 'EmergencyAlertNotification',
   tableName: 'emergency_alert_notifications',
   columns: {
-    ...baseColumns, 
+    ...baseColumns,
     /** Notification destination. */
     recipientType: {
       name: 'recipient_type',

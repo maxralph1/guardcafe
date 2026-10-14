@@ -37,8 +37,8 @@ export const Employment = new EntitySchema({
       // active, on_leave, suspended, terminated
     },
     hourlyRate: {
-      name: 'hourly_rate', 
-      type: 'int', 
+      name: 'hourly_rate',
+      type: 'int',
       /** 
       type: 'numeric',
       precision: 12,
@@ -47,8 +47,8 @@ export const Employment = new EntitySchema({
       nullable: true,
     },
     overtimeMultiplier: {
-      name: 'overtime_multiplier', 
-      type: 'int', 
+      name: 'overtime_multiplier',
+      type: 'int',
       /** 
       type: 'numeric',
       precision: 5,
@@ -57,8 +57,8 @@ export const Employment = new EntitySchema({
       nullable: true,
     },
     nightDiffMultiplier: {
-      name: 'night_diff_multiplier', 
-      type: 'int', 
+      name: 'night_diff_multiplier',
+      type: 'int',
       /** 
       type: 'numeric',
       precision: 5,
@@ -102,13 +102,13 @@ export const Employment = new EntitySchema({
       },
       onDelete: 'RESTRICT',
       nullable: false,
-    }, 
-    
+    },
+
     compensationHistory: {
       type: 'one-to-many',
       target: 'CompensationHistory',
       inverseSide: 'employment',
-    }, 
+    },
     shifts: {
       type: 'one-to-many',
       target: 'Shift',

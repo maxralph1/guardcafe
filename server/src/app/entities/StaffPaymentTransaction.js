@@ -4,7 +4,7 @@ import { baseColumns } from './baseColumns.js';
 /**
  * Records each payment attempt or transfer, including its amount, method, status, reference, and timestamps.
  * Every individual payment attempt or transfer gets its own record.
- * A failed transfer must remain recorded even if the officer is subsequently paid successfully through another transaction. 
+ * A failed transfer must remain recorded even if the officer is subsequently paid successfully through another transaction.
  * Generate UNIQUE transaction numbers and idempotency keys in your application or payment service. Do not reuse a key for a different payment operation.
  */
 export const StaffPaymentTransaction = new EntitySchema({
@@ -90,7 +90,7 @@ export const StaffPaymentTransaction = new EntitySchema({
       name: 'staff_payment_id',
       type: 'uuid',
       nullable: false,
-    }, 
+    },
     officerId: {
       name: 'officer_id',
       type: 'uuid',
@@ -113,7 +113,7 @@ export const StaffPaymentTransaction = new EntitySchema({
       },
       nullable: false,
       onDelete: 'RESTRICT',
-    }, 
+    },
     officer: {
       type: 'many-to-one',
       target: 'Officer',
@@ -134,8 +134,8 @@ export const StaffPaymentTransaction = new EntitySchema({
       },
       nullable: true,
       onDelete: 'RESTRICT',
-    }, 
-    
+    },
+
     attachments: {
       type: 'one-to-many',
       target: 'StaffPaymentTransactionAttachment',

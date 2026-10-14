@@ -5,29 +5,31 @@
   "license": "ISC",
   "author": "Maximillian Raphaels",
   "type": "module",
-  "main": "index.js",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=22.13.0"
+  },
   "scripts": {
-    "no-test": "echo \"Error: no test specified\" && exit 1",
-    "test-node": "ENV=test node --test src/tests/",
-    "test": "ENV=test NODE_OPTIONS=--experimental-vm-modules jest --runInBand",
-    "db:migrate": "node src/commands/migrate.js",
-    "db:seed": "node src/commands/seed.js",
-    "db:migrate-seed": "node src/commands/migrate.js && node commands/seed.js",
-    
-    "migration:generate-a": "typeorm migration:generate -d src/config/database.js -o --esm", 
-    "migration:run-a": "typeorm migration:run -d src/config/database.js", 
-    "migration:revert-a": "typeorm migration:revert -d src/config/database.js",
-    
-    "migration:generate": "typeorm migration:generate -d src/config/database.js",
-    "migration:run": "typeorm migration:run -d src/config/database.js",
-    "migration:revert": "typeorm migration:revert -d src/config/database.js",
-    "migration:show": "typeorm migration:show -d src/config/database.js",
+    "dev": "node --env-file=.env --watch src/index.js",
+    "start": "node --env-file=.env src/index.js",
+    "build": "echo \"no build needed\"",
+    "test": "node --experimental-vm-modules --disable-warning=ExperimentalWarning ./node_modules/jest/bin/jest.js",
+    "test:unit": "npm test -- src/tests/unit", 
+    "test:feature": "npm test -- src/tests/feature",
+    "test:coverage": "npm test -- --coverage",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "format": "prettier --write \"src/**/*.js\"",
-    "build": "echo \"no build needed\"",
-    "dev": "node --env-file=.env --watch src/index.js",
-    "start": "node --env-file=.env src/index.js"
+    "format:check": "prettier --check \"src/**/*.js\"",
+    "check": "npm run lint && npm run format:check && npm test",
+    "db:migrate": "node src/commands/database/migrate.js",
+    "db:seed": "node src/commands/database/seed.js",
+    "db:migrate-seed": "npm run db:migrate && npm run db:seed",
+    "migration:generate-esm": "typeorm migration:generate -d src/config/database.js -o --esm",
+    "migration:generate": "typeorm migration:generate -d src/config/database.js",
+    "migration:run": "typeorm migration:run -d src/config/database.js",
+    "migration:revert": "typeorm migration:revert -d src/config/database.js",
+    "migration:show": "typeorm migration:show -d src/config/database.js"
   },
   "dependencies": {
     "@node-rs/argon2": "^2.2.2",
@@ -49,6 +51,7 @@
     "typeorm": "^1.1.1"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "eslint": "^10.12.0",
     "globals": "^17.13.0",
     "jest": "^30.5.2",

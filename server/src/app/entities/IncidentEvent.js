@@ -1,7 +1,7 @@
 import { EntitySchema } from 'typeorm';
 
 /**
- * This tracks every important action taken on an incident. 
+ * This tracks every important action taken on an incident.
  */
 export const IncidentEvent = new EntitySchema({
   name: 'IncidentEvent',
@@ -11,7 +11,7 @@ export const IncidentEvent = new EntitySchema({
       type: 'uuid',
       primary: true,
       generated: 'uuid',
-    }, 
+    },
     eventType: {
       name: 'event_type',
       type: 'varchar',

@@ -26,8 +26,8 @@ export const CompensationHistory = new EntitySchema({
       nullable: true,
     },
     hourlyRate: {
-      name: 'hourly_rate', 
-      type: 'int', 
+      name: 'hourly_rate',
+      type: 'int',
       /** 
       type: 'numeric',
       precision: 12,
@@ -36,8 +36,8 @@ export const CompensationHistory = new EntitySchema({
       nullable: false,
     },
     overtimeMultiplier: {
-      name: 'overtime_multiplier', 
-      type: 'int', 
+      name: 'overtime_multiplier',
+      type: 'int',
       /** 
       type: 'numeric',
       precision: 5,
@@ -47,8 +47,8 @@ export const CompensationHistory = new EntitySchema({
       default: 15,
     },
     nightDiffMultiplier: {
-      name: 'night_diff_multiplier', 
-      type: 'int', 
+      name: 'night_diff_multiplier',
+      type: 'int',
       /** 
       type: 'numeric',
       precision: 5,
@@ -87,7 +87,7 @@ export const CompensationHistory = new EntitySchema({
       name: 'employment_id',
       type: 'uuid',
       nullable: false,
-    }, 
+    },
     officerId: {
       name: 'officer_id',
       type: 'uuid',
@@ -105,7 +105,7 @@ export const CompensationHistory = new EntitySchema({
       },
       onDelete: 'RESTRICT',
       nullable: false,
-    }, 
+    },
     officer: {
       type: 'many-to-one',
       target: 'Officer',

@@ -1,19 +1,27 @@
 import dotenv from 'dotenv';
 import { validateEnv } from './env.validation.js';
 
-dotenv.config();
+/**
+ * Like Laravel, the "test" environment reads .env.testing instead of .env, so a developer's real settings can never leak into a test run. A missing file is ignored, and variables that are already set are never overridden.
+ */
+dotenv.config({
+  path: process.env.APP_ENV === 'test' ? '.env.testing' : '.env',
+  quiet: true,
+});
 
 const env = validateEnv(process.env);
 
 const config = Object.freeze({
-  env: env.ENV,
-  isProd: env.ENV === 'production',
-  isDev: env.ENV === 'development',
-  isTest: env.ENV === 'test',
+  env: env.APP_ENV,
+  isProd: env.APP_ENV === 'production',
+  isDev: env.APP_ENV === 'development',
+  isTest: env.APP_ENV === 'test',
   port: env.PORT,
   apiPrefix: env.API_PREFIX,
   corsOrigin: env.CORS_ORIGIN
-    ? env.CORS_ORIGIN.split(',').map((s) => s.trim()).filter(Boolean)
+    ? env.CORS_ORIGIN.split(',')
+        .map((s) => s.trim())
+        .filter(Boolean)
     : [],
   logLevel: env.LOG_LEVEL,
   db: Object.freeze({

@@ -5,8 +5,8 @@ import { baseColumns } from './baseColumns.js';
  * Records significant events in an officer's history.
  *
  * Employment status and employment dates belong to Employment.
- * This entity preserves a record of important activities and changes. 
- * 
+ * This entity preserves a record of important activities and changes.
+ *
  * When employmentId is provided, validate that the employment belongs to the specified officer. A foreign key on each column separately does not guarantee that the two references match.
  */
 export const OfficerActivity = new EntitySchema({
@@ -19,7 +19,7 @@ export const OfficerActivity = new EntitySchema({
       name: 'activity_type',
       type: 'varchar',
       length: 100,
-      nullable: false, 
+      nullable: false,
       // hired, employment_terminated, promoted, demoted, transferred, suspended, reinstated, credential_verified, disciplinary_action, commendation
     },
     occurredAt: {

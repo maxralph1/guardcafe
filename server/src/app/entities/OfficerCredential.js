@@ -1,5 +1,5 @@
-import { EntitySchema } from 'typeorm'; 
-import { baseColumns } from './baseColumns.js'; 
+import { EntitySchema } from 'typeorm';
+import { baseColumns } from './baseColumns.js';
 
 /**
  * Licenses, permits, certifications, and other officer credentials.
@@ -10,55 +10,55 @@ import { baseColumns } from './baseColumns.js';
  * - revokedAt records early revocation.
  */
 export const OfficerCredential = new EntitySchema({
-  name: 'OfficerCredential', 
-  tableName: 'officer_credentials', 
+  name: 'OfficerCredential',
+  tableName: 'officer_credentials',
   columns: {
-    ...baseColumns, 
+    ...baseColumns,
     type: {
       name: 'type',
-      type: 'varchar', 
+      type: 'varchar',
       length: 100,
-      nullable: false,   // armed_permit, first_aid, cpr, drivers_license, guard_license, international_passport, national_id, other
-    }, 
+      nullable: false, // armed_permit, first_aid, cpr, drivers_license, guard_license, international_passport, national_id, other
+    },
     credentialNumber: {
-      name: 'credential_number', 
-      type: 'varchar', 
-      length: 100, 
-      nullable: true, 
-    }, 
+      name: 'credential_number',
+      type: 'varchar',
+      length: 100,
+      nullable: true,
+    },
     issuingAuthority: {
-      name: 'issuing_authority', 
-      type: 'varchar', 
-      length: 200, 
-      nullable: true, 
-    }, 
+      name: 'issuing_authority',
+      type: 'varchar',
+      length: 200,
+      nullable: true,
+    },
     issuedDate: {
       name: 'issued_date',
       type: 'date',
       nullable: true,
-    }, 
+    },
     expiryDate: {
       name: 'expiry_date',
       type: 'date',
       nullable: true,
-    }, 
+    },
     verificationStatus: {
       name: 'verification_status',
       type: 'varchar',
       length: 30,
       nullable: false,
       default: 'pending',
-    }, 
+    },
     verifiedAt: {
       name: 'verified_at',
       type: 'timestamptz',
       nullable: true,
-    }, 
+    },
     verifiedByUserId: {
       name: 'verified_by_user_id',
       type: 'uuid',
       nullable: true,
-    }, 
+    },
     rejectionReason: {
       name: 'rejection_reason',
       type: 'text',
@@ -68,12 +68,12 @@ export const OfficerCredential = new EntitySchema({
       name: 'revoked_at',
       type: 'timestamptz',
       nullable: true,
-    }, 
+    },
     revocationReason: {
       name: 'revocation_reason',
       type: 'text',
       nullable: true,
-    }, 
+    },
     documentStorageKey: {
       name: 'document_storage_key',
       type: 'varchar',
@@ -104,28 +104,28 @@ export const OfficerCredential = new EntitySchema({
       nullable: true,
     },
     documentUrl: {
-      name: 'document_url', 
-      type: 'text', 
+      name: 'document_url',
+      type: 'text',
       nullable: true,
-    }, 
+    },
     officerId: {
       name: 'officer_id',
       type: 'uuid',
       nullable: false,
     },
-  }, 
+  },
   relations: {
     officer: {
       type: 'many-to-one',
-      target: 'Officer', 
+      target: 'Officer',
       inverseSide: 'officerCredentials',
       joinColumn: {
         name: 'officer_id',
         referencedColumnName: 'id',
       },
-      nullable: false, 
-      onDelete: 'RESTRICT', 
-    }, 
+      nullable: false,
+      onDelete: 'RESTRICT',
+    },
     verifiedByUser: {
       type: 'many-to-one',
       target: 'User',

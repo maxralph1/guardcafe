@@ -1,5 +1,5 @@
-import { EntitySchema } from 'typeorm'; 
-import { baseColumns } from './baseColumns.js'; 
+import { EntitySchema } from 'typeorm';
+import { baseColumns } from './baseColumns.js';
 
 /**
  * Defines a user's membership and access level within a client company.
@@ -13,7 +13,7 @@ export const ClientUser = new EntitySchema({
   name: 'ClientUser',
   tableName: 'client_users',
   columns: {
-    ...baseColumns, 
+    ...baseColumns,
     clientId: {
       name: 'client_id',
       type: 'uuid',

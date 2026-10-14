@@ -1,2 +1,5 @@
 .env
+.env.testing
+coverage 
 node_modules
+dev-notes.txt

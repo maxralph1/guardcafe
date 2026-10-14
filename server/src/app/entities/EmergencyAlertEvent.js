@@ -1,7 +1,7 @@
 import { EntitySchema } from 'typeorm';
 
 /**
- * The historical incident (emergency alert, specifically) timeline. 
+ * The historical incident (emergency alert, specifically) timeline.
  */
 export const EmergencyAlertEvent = new EntitySchema({
   name: 'EmergencyAlertEvent',
@@ -17,7 +17,7 @@ export const EmergencyAlertEvent = new EntitySchema({
       name: 'event_type',
       type: 'varchar',
       length: 100,
-      nullable: false, 
+      nullable: false,
       // alert_triggered, alert_acknowledged, responder_assigned, dispatch_started, alert_resolved, alert_reopened.
     },
     /** Human-readable summary for dashboards and incident reviews. */

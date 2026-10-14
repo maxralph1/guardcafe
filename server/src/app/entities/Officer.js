@@ -41,7 +41,7 @@ export const Officer = new EntitySchema({
     userId: {
       name: 'user_id',
       type: 'uuid',
-      nullable: true, 
+      nullable: true,
       /** nullable because an officer does not necessarily need to log in */
     },
   },
@@ -55,7 +55,7 @@ export const Officer = new EntitySchema({
       },
       onDelete: 'RESTRICT',
       nullable: true,
-    }, 
+    },
     compensationHistory: {
       type: 'one-to-many',
       target: 'CompensationHistory',
@@ -65,7 +65,7 @@ export const Officer = new EntitySchema({
       type: 'one-to-many',
       target: 'Employment',
       inverseSide: 'officer',
-    }, 
+    },
     attendanceEvents: {
       type: 'one-to-many',
       target: 'AttendanceEvent',
@@ -100,7 +100,7 @@ export const Officer = new EntitySchema({
       type: 'one-to-many',
       target: 'CheckInResponse',
       inverseSide: 'officer',
-    }, 
+    },
     siteCheckpointPatrols: {
       type: 'one-to-many',
       target: 'SiteCheckpointPatrol',
