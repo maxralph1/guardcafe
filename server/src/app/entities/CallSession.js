@@ -81,7 +81,7 @@ export const CallSession = new EntitySchema({
       type: 'many-to-one',
       target: 'User',
       joinColumn: {
-        name: 'initiated_by_user',
+        name: 'initiated_by_user_id',
         referencedColumnName: 'id',
       },
       nullable: true,
@@ -107,7 +107,7 @@ export const CallSession = new EntitySchema({
       nullable: true,
       onDelete: 'SET NULL',
     },
-    callerId: {
+    caller: {
       type: 'many-to-one',
       target: 'User',
       joinColumn: {
@@ -117,7 +117,7 @@ export const CallSession = new EntitySchema({
       nullable: true,
       onDelete: 'RESTRICT',
     },
-    calleeId: {
+    callee: {
       type: 'many-to-one',
       target: 'User',
       joinColumn: {

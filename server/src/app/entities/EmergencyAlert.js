@@ -179,17 +179,17 @@ export const EmergencyAlert = new EntitySchema({
       nullable: true,
       onDelete: 'RESTRICT',
     },
-    emergencyAlertEvents: {
+    events: {
       type: 'one-to-many',
       target: 'EmergencyAlertEvent',
       inverseSide: 'emergencyAlert',
     },
-    emergencyAlertNotifications: {
+    notifications: {
       type: 'one-to-many',
       target: 'EmergencyAlertNotification',
       inverseSide: 'emergencyAlert',
     },
-    emergencyAlertResponders: {
+    responders: {
       type: 'one-to-many',
       target: 'EmergencyAlertResponder',
       inverseSide: 'emergencyAlert',

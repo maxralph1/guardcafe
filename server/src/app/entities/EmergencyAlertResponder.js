@@ -95,7 +95,7 @@ export const EmergencyAlertResponder = new EntitySchema({
       onDelete: 'RESTRICT',
     },
 
-    emergencyAlertNotifications: {
+    notifications: {
       type: 'one-to-many',
       target: 'EmergencyAlertNotification',
       inverseSide: 'emergencyAlertResponder',

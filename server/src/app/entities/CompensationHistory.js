@@ -25,6 +25,7 @@ export const CompensationHistory = new EntitySchema({
       type: 'date',
       nullable: true,
     },
+    /** In cents: 9850 means mur 98.50 per hour. */
     hourlyRate: {
       name: 'hourly_rate',
       type: 'int',
@@ -35,29 +36,33 @@ export const CompensationHistory = new EntitySchema({
       */
       nullable: false,
     },
+    /** 1.5 means time and a half. */
     overtimeMultiplier: {
       name: 'overtime_multiplier',
-      type: 'int',
-      /** 
       type: 'numeric',
       precision: 5,
-      scale: 2, 
+      scale: 2,
+      /** 
+      type: 'int', 
       */
       nullable: false,
-      default: 15,
+      /** 
+      default: 1.5,
+      */
+      default: () => '1.5', // raw SQL: a plain 1.5 makes TypeORM report a difference every time
     },
+    /** An additional multiplier on top of the base rate. */
     nightDiffMultiplier: {
       name: 'night_diff_multiplier',
-      type: 'int',
-      /** 
       type: 'numeric',
       precision: 5,
-      scale: 2, 
+      scale: 2,
+      /** 
+      type: 'int', 
       */
       nullable: false,
       default: 0,
-      // Additional night differential multiplier.
-      // Example: 15 (0.15) means an additional 15%.
+      /** Additional night differential multiplier. e.g. 0.15 means an additional 15%. */
     },
     currencyCode: {
       name: 'currency_code',

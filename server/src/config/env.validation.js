@@ -14,6 +14,7 @@ const schema = Joi.object({
   DB_NAME: Joi.string().required(),
   DB_LOGGING: Joi.boolean().truthy('true').falsy('false').default(false),
   DB_SYNCHRONIZE: Joi.boolean().truthy('true').falsy('false').default(false),
+  DB_SSL: Joi.boolean().truthy('true').falsy('false').default(false),
   DB_POOL_MAX: Joi.number().integer().min(1).max(200).default(20),
   DB_CONNECTION_TIMEOUT_MS: Joi.number().integer().min(1000).default(10000),
 

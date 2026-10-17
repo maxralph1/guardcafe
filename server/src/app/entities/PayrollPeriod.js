@@ -1,9 +1,8 @@
 import { EntitySchema } from 'typeorm';
 import { baseColumns } from './baseColumns.js';
-import { User } from './User.js';
 
 /**
- * A pay cycle (weekly, biweekly, monthly).
+ * A pay cycle (weekly, biweekly, monthly, or a custom range the agency decides).
  */
 export const PayrollPeriod = new EntitySchema({
   name: 'PayrollPeriod',
@@ -48,13 +47,18 @@ export const PayrollPeriod = new EntitySchema({
   relations: {
     approvingUser: {
       type: 'many-to-one',
-      target: User,
+      target: 'User',
       joinColumn: {
         name: 'approved_by',
         referencedColumnName: 'id',
       },
-      onDelete: 'CASCADE',
+      onDelete: 'RESTRICT',
       nullable: true,
+    },
+    payrollEntries: {
+      type: 'one-to-many',
+      target: 'PayrollEntry',
+      inverseSide: 'payrollPeriod',
     },
     staffPayments: {
       type: 'one-to-many',
@@ -63,11 +67,6 @@ export const PayrollPeriod = new EntitySchema({
     },
   },
   indices: [
-    {
-      name: 'IDX_PAYROLL_PERIODS_ID',
-      columns: ['id'],
-      unique: true,
-    },
     {
       name: 'IDX_PAYROLL_PERIODS_APPROVED_BY',
       columns: ['approvedBy'],

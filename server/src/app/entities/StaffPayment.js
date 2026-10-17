@@ -9,11 +9,10 @@ export const StaffPayment = new EntitySchema({
   tableName: 'staff_payments',
   columns: {
     ...baseColumns,
+    /** In cents: 1250000 means mur 12,500.00. */
     amountDue: {
       name: 'amount_due',
-      type: 'numeric',
-      precision: 14,
-      scale: 2,
+      type: 'int',
       nullable: false,
     },
     currencyCode: {
@@ -21,7 +20,7 @@ export const StaffPayment = new EntitySchema({
       type: 'varchar',
       length: 3,
       nullable: false,
-      default: 'MUR',
+      default: 'mur',
     },
     status: {
       type: 'varchar',

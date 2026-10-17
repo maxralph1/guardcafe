@@ -10,7 +10,7 @@ export const RefreshToken = new EntitySchema({
     id: {
       type: 'uuid',
       primary: true,
-      generated: true,
+      generated: 'uuid',
     },
     tokenHash: {
       name: 'token_hash',

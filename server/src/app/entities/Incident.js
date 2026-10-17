@@ -142,7 +142,7 @@ export const Incident = new EntitySchema({
         name: 'officer_id',
         referencedColumnName: 'id',
       },
-      nullable: true,
+      nullable: false,
       onDelete: 'RESTRICT',
     },
     shift: {
@@ -162,7 +162,7 @@ export const Incident = new EntitySchema({
         name: 'site_id',
         referencedColumnName: 'id',
       },
-      nullable: true,
+      nullable: false,
       onDelete: 'RESTRICT',
     },
     emergencyAlert: {
@@ -175,12 +175,12 @@ export const Incident = new EntitySchema({
       nullable: true,
       onDelete: 'RESTRICT',
     },
-    incidentEvents: {
+    events: {
       type: 'one-to-many',
       target: 'IncidentEvent',
       inverseSide: 'incident',
     },
-    incidentNotifications: {
+    notifications: {
       type: 'one-to-many',
       target: 'IncidentNotification',
       inverseSide: 'incident',

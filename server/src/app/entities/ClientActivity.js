@@ -54,7 +54,7 @@ export const ClientActivity = new EntitySchema({
       unique: false,
     },
     {
-      name: 'IDX_CLIEMT_ACTIVITIES_CLIENT_OCCURRED_AT',
+      name: 'IDX_CLIENT_ACTIVITIES_CLIENT_OCCURRED_AT',
       columns: ['clientId', 'createdAt'],
       unique: false,
     },

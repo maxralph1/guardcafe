@@ -2,7 +2,8 @@ import { EntitySchema } from 'typeorm';
 import { baseColumns } from './baseColumns.js';
 
 /**
- * One row per officer per period. Computed from shifts + rates.
+ * One row per officer per period shift - One row per shift worked in a payroll period. Computed from the shift + rates.
+ * An officer's entries for a period add up to that officer's StaffPayment for the period.
  * Monetary amounts and applied rates are snapshots of the calculation at the time payroll is calculated.
  *
  * Finalized payroll must not silently change when shifts, compensation history, or employment details change.
@@ -70,10 +71,12 @@ export const PayrollEntry = new EntitySchema({
       type: 'int',
       nullable: true,
     },
-    /** 15(0.15) means an additional 15%. */
+    /** 0.15 means an additional 15%. */
     nightDiffMultiplier: {
       name: 'night_diff_multiplier',
-      type: 'int',
+      type: 'numeric',
+      precision: 5,
+      scale: 2,
       nullable: true,
     },
     currencyCode: {
@@ -81,6 +84,7 @@ export const PayrollEntry = new EntitySchema({
       type: 'varchar',
       length: 3,
       nullable: false,
+      default: 'mur',
     },
     grossPay: {
       name: 'gross_pay',
@@ -171,6 +175,7 @@ export const PayrollEntry = new EntitySchema({
     payrollPeriod: {
       type: 'many-to-one',
       target: 'PayrollPeriod',
+      inverseSide: 'payrollEntries',
       joinColumn: {
         name: 'payroll_period_id',
         referencedColumnName: 'id',
@@ -233,9 +238,18 @@ export const PayrollEntry = new EntitySchema({
   },
   indices: [
     {
-      name: 'UQ_PAYROLL_ENTRIES_PERIOD_OFFICER',
-      columns: ['payrollPeriodId', 'officerId'],
+      name: 'UQ_PAYROLL_ENTRIES_PERIOD_SHIFT',
+      columns: ['payrollPeriodId', 'shiftId'],
       unique: true,
+    },
+    {
+      /** Adding up an officer's entries for a period is how their StaffPayment is calculated */
+      name: 'IDX_PAYROLL_ENTRIES_PERIOD_OFFICER',
+      columns: ['payrollPeriodId', 'officerId'],
+    },
+    {
+      name: 'IDX_PAYROLL_ENTRIES_SHIFT',
+      columns: ['shiftId'],
     },
     {
       name: 'IDX_PAYROLL_ENTRIES_PERIOD_STATUS',

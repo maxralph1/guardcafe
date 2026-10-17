@@ -32,6 +32,7 @@ describe('validateEnv', () => {
         DB_TYPE: 'postgres',
         DB_LOGGING: false,
         DB_SYNCHRONIZE: false,
+        DB_SSL: false,
         DB_POOL_MAX: 20,
         DB_CONNECTION_TIMEOUT_MS: 10000,
         LOG_LEVEL: 'info',
@@ -73,10 +74,16 @@ describe('validateEnv', () => {
     });
 
     it('turns "true" and "false" into booleans', () => {
-      const env = validateEnv({ ...validEnv, DB_LOGGING: 'true', DB_SYNCHRONIZE: 'false' });
+      const env = validateEnv({
+        ...validEnv,
+        DB_LOGGING: 'true',
+        DB_SYNCHRONIZE: 'false',
+        DB_SSL: 'true',
+      });
 
       expect(env.DB_LOGGING).toBe(true);
       expect(env.DB_SYNCHRONIZE).toBe(false);
+      expect(env.DB_SSL).toBe(true);
     });
   });
 

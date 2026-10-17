@@ -3,6 +3,8 @@ export default {
   testEnvironment: 'node',
   roots: ['<rootDir>/src/tests'],
   testMatch: ['**/*.test.js'],
+  /** Tests that need a real database run separately: `npm run test:database` (jest.database.config.js) */
+  testPathIgnorePatterns: ['/node_modules/', '/src/tests/integration/'],
 
   /** 
    * The project is native ESM, so no code transform: tests run exactly as written.

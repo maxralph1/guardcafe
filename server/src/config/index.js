@@ -31,6 +31,7 @@ const config = Object.freeze({
     username: env.DB_USERNAME,
     password: env.DB_PASSWORD,
     database: env.DB_NAME,
+    ssl: env.DB_SSL,
     logging: env.DB_LOGGING,
     synchronize: env.DB_SYNCHRONIZE,
     poolMax: env.DB_POOL_MAX,

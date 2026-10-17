@@ -18,10 +18,9 @@ export const StaffPaymentTransaction = new EntitySchema({
       length: 100,
       nullable: false,
     },
+    /** In cents: 1250000 means mur 12,500.00. */
     amount: {
-      type: 'numeric',
-      precision: 14,
-      scale: 2,
+      type: 'int',
       nullable: false,
     },
     currencyCode: {
@@ -29,7 +28,7 @@ export const StaffPaymentTransaction = new EntitySchema({
       type: 'varchar',
       length: 3,
       nullable: false,
-      default: 'MUR',
+      default: 'mur',
     },
     paymentMethod: {
       name: 'payment_method',
@@ -117,7 +116,7 @@ export const StaffPaymentTransaction = new EntitySchema({
     officer: {
       type: 'many-to-one',
       target: 'Officer',
-      inverseSide: 'transactions',
+      inverseSide: 'staffPaymentTransactions',
       joinColumn: {
         name: 'officer_id',
         referencedColumnName: 'id',

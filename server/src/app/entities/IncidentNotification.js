@@ -26,7 +26,7 @@ export const IncidentNotification = new EntitySchema({
       name: 'external_contact',
       type: 'varchar',
       length: 200,
-      nullable: false,
+      nullable: true, // set when the recipient is not a user (see the check at the bottom)
     },
     /** When the provider successfully accepts/sends the notification. */
     notifiedAt: {
@@ -80,7 +80,7 @@ export const IncidentNotification = new EntitySchema({
         name: 'notified_user_id',
         referencedColumnName: 'id',
       },
-      nullable: false,
+      nullable: true,
       onDelete: 'RESTRICT',
     },
   },
@@ -100,6 +100,13 @@ export const IncidentNotification = new EntitySchema({
     {
       name: 'IDX_INCIDENT_NOTIFICATIONS_INCIDENT_STATUS',
       columns: ['incidentId', 'status'],
+    },
+  ],
+  checks: [
+    {
+      // Every notification goes to a user, an external contact, or both
+      name: 'CHK_INCIDENT_NOTIFICATIONS_RECIPIENT',
+      expression: '"notified_user_id" IS NOT NULL OR "external_contact" IS NOT NULL',
     },
   ],
 });

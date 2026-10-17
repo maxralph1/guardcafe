@@ -3,12 +3,10 @@ import { baseColumns } from './baseColumns.js';
 
 /**
  * Represents an individual security officer.
- *
  * Employment periods are stored separately in Employment.
  * A person can have multiple employment records over time.
- *
- * A User account is optional, allowing officers to exist
- * in the system without having login credentials.
+ * Every officer is a User: the login account holds their name, email and phone,
+ * and one User can only ever be one Officer.
  */
 export const Officer = new EntitySchema({
   name: 'Officer',
@@ -41,20 +39,20 @@ export const Officer = new EntitySchema({
     userId: {
       name: 'user_id',
       type: 'uuid',
-      nullable: true,
-      /** nullable because an officer does not necessarily need to log in */
+      nullable: false,
     },
   },
   relations: {
     user: {
-      type: 'many-to-one',
+      type: 'one-to-one',
       target: 'User',
+      inverseSide: 'officer',
       joinColumn: {
         name: 'user_id',
         referencedColumnName: 'id',
       },
       onDelete: 'RESTRICT',
-      nullable: true,
+      nullable: false,
     },
     compensationHistory: {
       type: 'one-to-many',
@@ -111,12 +109,10 @@ export const Officer = new EntitySchema({
       target: 'StaffPayment',
       inverseSide: 'officer',
     },
-  },
-
-  indices: [
-    {
-      name: 'IDX_OFFICERS_USER_ID',
-      columns: ['userId'],
+    staffPaymentTransactions: {
+      type: 'one-to-many',
+      target: 'StaffPaymentTransaction',
+      inverseSide: 'officer',
     },
-  ],
+  },
 });

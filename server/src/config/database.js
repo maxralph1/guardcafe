@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import pg from 'pg';
 import { DataSource } from 'typeorm';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
@@ -42,9 +43,18 @@ import { StaffPaymentTransactionAttachment } from '../app/entities/StaffPaymentT
 import { SystemSetting } from '../app/entities/SystemSetting.js';
 import { User } from '../app/entities/User.js';
 
+/**
+ * PostgreSQL returns numeric and bigint columns as strings.
+ * Ours are small (coordinates, hours, multipliers, file sizes), so read them as plain numbers.
+ */
+pg.types.setTypeParser(pg.types.builtins.NUMERIC, Number);
+pg.types.setTypeParser(pg.types.builtins.INT8, Number);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const migrationsGlob = path.join(__dirname, '..', 'database', 'migrations', '*.js');
+
+/** Neon, like most hosted PostgreSQL, only accepts encrypted connections: set DB_SSL=true. */
+export const sslOptions = (enabled) => (enabled ? { rejectUnauthorized: true } : false);
 
 const AppDataSource = new DataSource({
   type: config.db.type,
@@ -55,6 +65,7 @@ const AppDataSource = new DataSource({
   database: config.db.database,
   synchronize: config.db.synchronize,
   logging: config.db.logging,
+  ssl: sslOptions(config.db.ssl),
   entities: [
     AttendanceEvent,
     AuditLog,

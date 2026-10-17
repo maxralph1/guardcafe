@@ -12,7 +12,7 @@ export const SystemSetting = new EntitySchema({
     key: {
       type: 'varchar',
       length: 100,
-      primary: true,
+      unique: true,
       // e.g. default_checkin_interval
     },
     value: {
@@ -43,8 +43,8 @@ export const SystemSetting = new EntitySchema({
         name: 'updated_by',
         referencedColumnName: 'id',
       },
-      onDelete: 'CASCADE',
-      nullable: false,
+      onDelete: 'SET NULL',
+      nullable: true,
     },
   },
   indices: [

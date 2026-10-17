@@ -77,6 +77,11 @@ export const User = new EntitySchema({
     },
   },
   relations: {
+    auditLogs: {
+      type: 'one-to-many',
+      target: 'AuditLog',
+      inverseSide: 'actorUser',
+    },
     clientMemberships: {
       type: 'one-to-many',
       target: 'ClientUser',
@@ -90,16 +95,16 @@ export const User = new EntitySchema({
     incidentNotifications: {
       type: 'one-to-many',
       target: 'IncidentNotification',
-      inverseSide: 'user',
+      inverseSide: 'notifiedUser',
     },
     notifications: {
       type: 'one-to-many',
       target: 'Notification',
       inverseSide: 'user',
     },
-    officers: {
-      type: 'one-to-many',
-      target: 'Officer', // string form avoids the circular import
+    officer: {
+      type: 'one-to-one',
+      target: 'Officer',
       inverseSide: 'user',
     },
     uploadedStaffPaymentTransactionAttachments: {

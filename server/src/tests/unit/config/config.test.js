@@ -17,6 +17,7 @@ describe('config', () => {
     expect(typeof config.apiPrefix).toBe('string');
     expect(Array.isArray(config.corsOrigin)).toBe(true);
     expect(typeof config.db.synchronize).toBe('boolean');
+    expect(typeof config.db.ssl).toBe('boolean');
     expect(typeof config.rateLimit.max).toBe('number');
     expect(typeof config.argon2.memoryCost).toBe('number');
   });

@@ -36,6 +36,7 @@ export const Employment = new EntitySchema({
       default: 'active',
       // active, on_leave, suspended, terminated
     },
+    /** In cents: 9850 means mur 98.50 per hour. */
     hourlyRate: {
       name: 'hourly_rate',
       type: 'int',
@@ -46,24 +47,26 @@ export const Employment = new EntitySchema({
       */
       nullable: true,
     },
+    /** 1.5 means time and a half. */
     overtimeMultiplier: {
       name: 'overtime_multiplier',
-      type: 'int',
       /** 
+      type: 'int', 
+      */
       type: 'numeric',
       precision: 5,
-      scale: 2, 
-      */
+      scale: 2,
       nullable: true,
     },
+    /** 0.15 means an additional 15%. */
     nightDiffMultiplier: {
       name: 'night_diff_multiplier',
-      type: 'int',
       /** 
+      type: 'int', 
+      */
       type: 'numeric',
       precision: 5,
-      scale: 2, 
-      */
+      scale: 2,
       nullable: true,
     },
     employmentType: {
